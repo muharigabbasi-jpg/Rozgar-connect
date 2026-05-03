@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Rozgar Connect"
+version = "1.0.0"
+id = "artifacts/rozgar-connect"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19586
+
+[services.development]
+run = "pnpm --filter @workspace/rozgar-connect run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/rozgar-connect", "run", "build" ]
+publicDir = "artifacts/rozgar-connect/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19586"
+BASE_PATH = "/"
